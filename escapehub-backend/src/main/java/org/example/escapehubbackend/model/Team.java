@@ -1,6 +1,8 @@
 package org.example.escapehubbackend.model;
 
 import jakarta.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "teams")
@@ -15,6 +17,14 @@ public class Team {
 
     @Column(nullable = false)
     private Long creatorId; // Ο δημιουργός της ομάδας
+
+    @ManyToMany//Πολλές ομάδες ανά χρήστη η πολλοί χρήστες σε μία ομάδα
+    @JoinTable(//Δημιουργία ενδιάμεσου πίνακα με συσχετίσης
+            name = "team_members",
+            joinColumns = @JoinColumn(name = "team_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private Set<User> members=new HashSet<>();
 
     public Team() {
     }
@@ -33,4 +43,7 @@ public class Team {
 
     public Long getCreatorId() { return creatorId; }
     public void setCreatorId(Long creatorId) { this.creatorId = creatorId; }
+
+    public Set<User> getMembers(){return members;}
+    public void setMembers(Set<User> members){this.members=members;}
 }
