@@ -5,7 +5,9 @@ import org.example.escapehubbackend.dtoRegister.loginRequest;
 import org.example.escapehubbackend.dtoRegister.registerRequest;
 import org.example.escapehubbackend.model.User;
 import org.example.escapehubbackend.repository.UserRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class authService {
     private final UserRepository userRepository;
 
