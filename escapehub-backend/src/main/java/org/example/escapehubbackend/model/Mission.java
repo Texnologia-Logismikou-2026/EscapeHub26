@@ -1,5 +1,4 @@
 package org.example.escapehubbackend.model;
-
 import jakarta.persistence.*;
 
 @Entity
