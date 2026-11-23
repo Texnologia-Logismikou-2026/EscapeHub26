@@ -1,3 +1,4 @@
+
 /* General page styling */
 * {
     box-sizing: border-box;
@@ -48,6 +49,13 @@ button:hover {
     background-color: #50665D;
 }
 
+button:disabled {
+    background-color: #303532;
+    color: #89918C;
+    border-color: #48504B;
+    cursor: not-allowed;
+}
+
 main {
     max-width: 1100px;
     min-height: 70vh;
@@ -72,8 +80,14 @@ main {
     margin: 18px 0;
 }
 
+.two-columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
 .form-panel {
-    max-width: 420px;
+    max-width: 100%;
 }
 
 label {
@@ -105,18 +119,24 @@ input:focus {
     background-color: #9A7846;
 }
 
+.secondary-button {
+    background-color: #39443F;
+    margin-top: 10px;
+}
+
 .mission-list {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 18px;
 }
 
 .mission {
-    flex: 1 1 250px;
+    margin: 0;
 }
 
 .message {
     color: #D8B978;
+    min-height: 20px;
 }
 
 .small-text {
@@ -124,12 +144,51 @@ input:focus {
     font-size: 0.9em;
 }
 
+.game-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.stage-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.stage-button.completed {
+    border-color: #64877D;
+    background-color: #34483E;
+}
+
+.clue-panel {
+    border-left-color: #64877D;
+}
+
 #diaryList {
     padding-left: 22px;
 }
 
 #diaryList li {
-    margin: 8px 0;
+    margin: 10px 0;
+    overflow-wrap: anywhere;
+}
+
+.progress-background {
+    width: 100%;
+    height: 18px;
+    background-color: #171A19;
+    border: 1px solid #64877D;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background-color: #C49A55;
+    transition: width 0.3s ease;
 }
 
 footer {
@@ -139,6 +198,16 @@ footer {
     padding: 15px;
     color: #B9C2BC;
     font-size: 0.9em;
+}
+
+@media (max-width: 750px) {
+    .mission-list {
+        grid-template-columns: 1fr;
+    }
+
+    .two-columns {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 600px) {
