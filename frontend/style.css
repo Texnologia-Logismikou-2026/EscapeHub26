@@ -1,0 +1,225 @@
+
+/* General page styling */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #171A19;
+    color: #E8E0CE;
+}
+
+header {
+    background-color: #242B28;
+    border-bottom: 2px solid #C49A55;
+    padding: 18px 5%;
+}
+
+.header-content {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+h1, h2, h3 {
+    color: #E8E0CE;
+}
+
+h1 {
+    margin-top: 0;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+button {
+    background-color: #39443F;
+    color: #E8E0CE;
+    border: 1px solid #64877D;
+    padding: 10px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #50665D;
+}
+
+button:disabled {
+    background-color: #303532;
+    color: #89918C;
+    border-color: #48504B;
+    cursor: not-allowed;
+}
+
+main {
+    max-width: 1100px;
+    min-height: 70vh;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.page {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
+.panel {
+    background-color: #242B28;
+    border: 1px solid #48554F;
+    border-left: 4px solid #C49A55;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 18px 0;
+}
+
+.two-columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.form-panel {
+    max-width: 100%;
+}
+
+label {
+    display: block;
+    margin: 12px 0 6px;
+}
+
+input {
+    width: 100%;
+    padding: 11px;
+    margin-bottom: 10px;
+    border: 1px solid #64877D;
+    border-radius: 4px;
+    background-color: #171A19;
+    color: #E8E0CE;
+}
+
+input:focus {
+    outline: 2px solid #C49A55;
+}
+
+.main-button {
+    background-color: #80643A;
+    border-color: #C49A55;
+    margin-top: 5px;
+}
+
+.main-button:hover {
+    background-color: #9A7846;
+}
+
+.secondary-button {
+    background-color: #39443F;
+    margin-top: 10px;
+}
+
+.mission-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.mission {
+    margin: 0;
+}
+
+.message {
+    color: #D8B978;
+    min-height: 20px;
+}
+
+.small-text {
+    color: #B9C2BC;
+    font-size: 0.9em;
+}
+
+.game-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.stage-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.stage-button.completed {
+    border-color: #64877D;
+    background-color: #34483E;
+}
+
+.clue-panel {
+    border-left-color: #64877D;
+}
+
+#diaryList {
+    padding-left: 22px;
+}
+
+#diaryList li {
+    margin: 10px 0;
+    overflow-wrap: anywhere;
+}
+
+.progress-background {
+    width: 100%;
+    height: 18px;
+    background-color: #171A19;
+    border: 1px solid #64877D;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background-color: #C49A55;
+    transition: width 0.3s ease;
+}
+
+footer {
+    background-color: #242B28;
+    border-top: 1px solid #48554F;
+    text-align: center;
+    padding: 15px;
+    color: #B9C2BC;
+    font-size: 0.9em;
+}
+
+@media (max-width: 750px) {
+    .mission-list {
+        grid-template-columns: 1fr;
+    }
+
+    .two-columns {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    nav {
+        flex-direction: column;
+    }
+
+    nav button {
+        width: 100%;
+    }
+
+    main {
+        margin-top: 20px;
+    }
+}
