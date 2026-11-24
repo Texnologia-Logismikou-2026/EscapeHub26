@@ -1,0 +1,22 @@
+{
+  "numFound": 472,
+  "start": 0,
+  "numFoundExact": true,
+  "num_found": 472,
+  "documentation_url": "https://openlibrary.org/dev/docs/api/search",
+  "q": "the modern prometheus",
+  "offset": null,
+  "docs": [
+    {
+      "author_key": [
+        "OL25342A"
+      ],
+      "author_name": [
+        "Mary Shelley"
+      ],
+      "first_publish_year": 1818,
+      "key": "/works/OL450063W",
+      "title": "Frankenstein; or, The Modern Prometheus"
+    }
+  ]
+}
