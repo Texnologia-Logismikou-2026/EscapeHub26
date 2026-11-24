@@ -10,9 +10,12 @@ public class  ExternalApiException extends RuntimeException {
 
      TIMEOUT,
     NOT_FOUND,
+    RATE_LIMITED,
+    HTTP_ERROR,
    UNAVAILABLE,
+   INVALID_RESPONSE,
    INVALID_INPUT,
-   HTTP_ERROR
+   
 }
 
 private final Reason reason;
