@@ -63,6 +63,27 @@ public class TeamService {
         return mapToResponse(updatedTeam);
     }
 
+    @Transactional
+    public TeamResponse joinTeamByName(String teamName, Long userId) {
+        if (teamName == null || teamName.isBlank()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Team name is required");
+        }
+        Team team = teamRepository.findByName(teamName.trim())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Team not found: " + teamName));
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+
+        boolean alreadyMember = team.getMembers().stream()
+                .anyMatch(member -> member.getId().equals(user.getId()));
+
+        if (!alreadyMember) {
+            team.getMembers().add(user);
+            team = teamRepository.save(team);
+        }
+        return mapToResponse(team);
+    }
+
     private TeamResponse mapToResponse(Team team) {
         List<TeamResponse.MemberInfo> memberInfos = team.getMembers().stream()
                 .map(user -> {
