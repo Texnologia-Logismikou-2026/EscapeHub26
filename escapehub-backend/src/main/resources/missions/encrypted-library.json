@@ -1,0 +1,171 @@
+{
+  "missionId": 1,
+  "code": "encrypted-library",
+  "title": "Το Κρυπτογραφημένο Αρχείο της Βιβλιοθήκης",
+  "category": "Μυστήριο / Ιστορική Έρευνα",
+  "description": "Εξερευνήστε τρεις ανεξάρτητες διαδρομές έρευνας χρησιμοποιώντας δεδομένα από Open Library και Wikidata για να ανοίξετε το ψηφιακό χρηματοκιβώτιο του βιβλιοθηκάριου.",
+  "minPlayers": 1,
+  "maxPlayers": 4,
+  "externalApis": [
+    "Open Library",
+    "Wikidata"
+  ],
+  "paths": [
+    {
+      "id": "path-a",
+      "name": "Διαδρομή Α: Η Σκισμένη Σελίδα",
+      "description": "Έρευνα βιβλιογραφικών στοιχείων μέσω του Open Library Search API.",
+      "puzzleIds": ["puzzle-a"]
+    },
+    {
+      "id": "path-b",
+      "name": "Διαδρομή Β: Η Παλιά Κάρτα Αρχείου",
+      "description": "Έρευνα βιογραφικών στοιχείων συγγραφέα μέσω του Open Library Authors API.",
+      "puzzleIds": ["puzzle-b"]
+    },
+    {
+      "id": "path-c",
+      "name": "Διαδρομή Γ: Η Σφραγίδα Ταχυδρομείου",
+      "description": "Έρευνα ιστορικής οντότητας μέσω του Wikidata API.",
+      "puzzleIds": ["puzzle-c"]
+    },
+    {
+      "id": "path-final",
+      "name": "Τελικό Στάδιο: Ψηφιακό Χρηματοκιβώτιο",
+      "description": "Συσχέτιση όλων των κλειδιών για την τελική απόδραση.",
+      "puzzleIds": ["puzzle-d"]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "evidence-1",
+      "title": "Ημερολόγιο Γραφείου",
+      "content": "Το χρηματοκιβώτιο ανοίγει με τη μορφή ΠΟΛΗ-ΔΙΑΦΟΡΑ: την πόλη γέννησης του οραματιστή ενωμένη με τη διαφορά του έτους πρώτης έκδοσης του μεγάλου ταξιδιού μείον το έτος γέννησης της δημιουργού της φρίκης.",
+      "pathId": "path-final",
+      "unlockedByDefault": true
+    },
+    {
+      "id": "evidence-2",
+      "title": "Σκισμένη Σελίδα",
+      "content": "Τίτλος έργου: Twenty Thousand Leagues Under the Sea.",
+      "pathId": "path-a",
+      "unlockedByDefault": true
+    },
+    {
+      "id": "evidence-3",
+      "title": "Παλιά Κάρτα Αρχείου",
+      "content": "Καρτέλα συγγραφέως: Mary Shelley.",
+      "pathId": "path-b",
+      "unlockedByDefault": true
+    },
+    {
+      "id": "evidence-4",
+      "title": "Σφραγίδα Ταχυδρομείου",
+      "content": "Κωδικός οντότητας Wikidata: Q33977 (Jules Verne). Αναζητήστε την ιδιότητα P19 (τόπος γέννησης).",
+      "pathId": "path-c",
+      "unlockedByDefault": true
+    },
+    {
+      "id": "evidence-5",
+      "title": "Κλειδί Α (Έτος Ταξιδιού)",
+      "content": "Επιβεβαιωμένο έτος πρώτης έκδοσης από Open Library: 1870.",
+      "pathId": "path-a",
+      "unlockedByDefault": false
+    },
+    {
+      "id": "evidence-6",
+      "title": "Κλειδί Β (Έτος Δημιουργού)",
+      "content": "Επιβεβαιωμένο έτος γέννησης Mary Shelley από Open Library: 1797.",
+      "pathId": "path-b",
+      "unlockedByDefault": false
+    },
+    {
+      "id": "evidence-7",
+      "title": "Κλειδί Γ (Πόλη Οραματιστή)",
+      "content": "Επιβεβαιωμένη πόλη γέννησης Jules Verne από Wikidata: Nantes.",
+      "pathId": "path-c",
+      "unlockedByDefault": false
+    }
+  ],
+  "puzzles": [
+    {
+      "id": "puzzle-a",
+      "pathId": "path-a",
+      "title": "Το Έτος του Υποθαλάσσιου Ταξιδιού",
+      "type": "API_YEAR_LOOKUP",
+      "prompt": "Ποιο είναι το έτος πρώτης έκδοσης του βιβλίου 'Twenty Thousand Leagues Under the Sea';",
+      "apiSource": {
+        "provider": "OPEN_LIBRARY",
+        "endpoint": "https://openlibrary.org/search.json?title=Twenty+Thousand+Leagues+Under+the+Sea",
+        "targetField": "first_publish_year",
+        "snapshotKey": "openlibrary-20000-leagues"
+      },
+      "requiredEvidenceIds": ["evidence-2"],
+      "unlockRule": {
+        "operator": "NONE",
+        "requiredSolvedPuzzles": []
+      },
+      "rewardEvidenceId": "evidence-5",
+      "validationRule": "EXACT_NUMBER:1870"
+    },
+    {
+      "id": "puzzle-b",
+      "pathId": "path-b",
+      "title": "Η Γέννηση της Δημιουργού",
+      "type": "API_AUTHOR_BIRTH_YEAR",
+      "prompt": "Ποιο έτος γεννήθηκε η συγγραφέας Mary Shelley;",
+      "apiSource": {
+        "provider": "OPEN_LIBRARY",
+        "endpoint": "https://openlibrary.org/authors/OL26444A.json",
+        "targetField": "birth_date",
+        "snapshotKey": "openlibrary-mary-shelley"
+      },
+      "requiredEvidenceIds": ["evidence-3"],
+      "unlockRule": {
+        "operator": "NONE",
+        "requiredSolvedPuzzles": []
+      },
+      "rewardEvidenceId": "evidence-6",
+      "validationRule": "EXACT_NUMBER:1797"
+    },
+    {
+      "id": "puzzle-c",
+      "pathId": "path-c",
+      "title": "Ο Τόπος Γέννησης του Οραματιστή",
+      "type": "API_ENTITY_PROPERTY",
+      "prompt": "Σε ποια πόλη γεννήθηκε ο Jules Verne (Wikidata Q33977, ιδιότητα P19);",
+      "apiSource": {
+        "provider": "WIKIDATA",
+        "endpoint": "https://www.wikidata.org/w/api.php?action=wbgetentities&ids=Q33977&props=claims&format=json",
+        "targetField": "P19",
+        "snapshotKey": "wikidata-jules-verne-p19"
+      },
+      "requiredEvidenceIds": ["evidence-4"],
+      "unlockRule": {
+        "operator": "NONE",
+        "requiredSolvedPuzzles": []
+      },
+      "rewardEvidenceId": "evidence-7",
+      "validationRule": "CASE_INSENSITIVE_TEXT:Nantes"
+    },
+    {
+      "id": "puzzle-d",
+      "pathId": "path-final",
+      "title": "Ο Κωδικός του Ψηφιακού Χρηματοκιβωτίου",
+      "type": "COMBINED_CORRELATION",
+      "prompt": "Συνδυάστε την πόλη (Κλειδί Γ) με τη διαφορά των δύο ετών (Κλειδί Α - Κλειδί Β) στη μορφή ΠΟΛΗ-ΔΙΑΦΟΡΑ.",
+      "apiSource": null,
+      "requiredEvidenceIds": ["evidence-1", "evidence-5", "evidence-6", "evidence-7"],
+      "unlockRule": {
+        "operator": "AND",
+        "requiredSolvedPuzzles": ["puzzle-a", "puzzle-b", "puzzle-c"]
+      },
+      "rewardEvidenceId": null,
+      "validationRule": "CASE_INSENSITIVE_TEXT:NANTES-73"
+    }
+  ],
+  "escapeCondition": {
+    "finalPuzzleId": "puzzle-d",
+    "description": "Η αποστολή ολοκληρώνεται επιτυχώς όταν λυθούν οι 3 παράλληλες διαδρομές και υποβληθεί σωστά ο συνδυαστικός κωδικός στο puzzle-d."
+  }
+}

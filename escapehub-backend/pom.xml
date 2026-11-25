@@ -28,6 +28,7 @@
     </scm>
     <properties>
         <java.version>17</java.version>
+
     </properties>
     <dependencies>
         <dependency>
@@ -71,12 +72,26 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>io.github.git-commit-id</groupId>
-                <artifactId>git-commit-id-maven-plugin</artifactId>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>1.17.4</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.pitest</groupId>
+                        <artifactId>pitest-junit5-plugin</artifactId>
+                        <version>1.2.1</version>
+                    </dependency>
+                </dependencies>
                 <configuration>
-                    <dotGitDirectory>${project.basedir}/../.git</dotGitDirectory>
-                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
-                    <failOnNoGitDirectory>false</failOnNoGitDirectory>
+                    <targetClasses>
+                        <param>org.example.escapehubbackend.engine.*</param>
+                        <param>org.example.escapehubbackend.service.MissionGameplayService</param>
+                        <param>org.example.escapehubbackend.controller.MissionGameplayController</param>
+                    </targetClasses>
+                    <targetTests>
+                        <param>org.example.escapehubbackend.engine.*</param>
+                        <param>org.example.escapehubbackend.controller.MissionSessionControllerTest</param>
+                    </targetTests>
                 </configuration>
             </plugin>
             <plugin>

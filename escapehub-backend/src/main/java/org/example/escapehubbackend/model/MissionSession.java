@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "mission_sessions")
@@ -34,10 +36,22 @@ public class MissionSession {
     @Column(name = "evidence")
     private List<String> unlockedEvidence = new ArrayList<>();
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "mission_session_collab_contributions", joinColumns = @JoinColumn(name = "session_id"))
+    @Column(name = "contribution")
+    private Set<String> collaborativeContributions = new HashSet<>();
+
+
     @Column(nullable = false)
     private LocalDateTime startedAt;
 
     private LocalDateTime completedAt;
+
+
+    @ElementCollection(fetch = FetchType.EAGER) //helper
+    @CollectionTable(name = "mission_session_unlocked_puzzles", joinColumns = @JoinColumn(name = "session_id"))
+    @Column(name = "puzzle_id")
+    private Set<Long> unlockedPuzzleIds = new HashSet<>();
 
     public MissionSession() {
         this.status = SessionStatus.IN_PROGRESS;
@@ -51,12 +65,49 @@ public class MissionSession {
         this.startedAt = LocalDateTime.now();
     }
 
+    public boolean isCompleted() {
+        return this.status == SessionStatus.COMPLETED;
+    }
+
+
+
+    public void completeSession(LocalDateTime timestamp) {
+        this.status = SessionStatus.COMPLETED;
+        this.completedAt = timestamp != null ? timestamp : LocalDateTime.now();
+    }
+
+
+
+
     public Long getCompletionTimeSeconds() {
         if (startedAt == null || completedAt == null) {
             return null;
         }
         return Math.max(0L, Duration.between(startedAt, completedAt).getSeconds());
     }
+
+    public Long getDurationSeconds() {
+        LocalDateTime end = completedAt != null ? completedAt : LocalDateTime.now();
+        return startedAt != null ? Math.max(0L, Duration.between(startedAt, end).getSeconds()) : 0L;
+    }
+
+    public void setCollaborativeContributions(Set<String> collaborativeContributions) {
+        this.collaborativeContributions = collaborativeContributions != null ? collaborativeContributions : new HashSet<>();
+    }
+
+
+    public Set<String> getCollaborativeContributions() {
+        return collaborativeContributions;
+    }
+
+    public Set<Long> getUnlockedPuzzleIds() {
+        return unlockedPuzzleIds;
+    }
+
+    public void setUnlockedPuzzleIds(Set<Long> unlockedPuzzleIds) {
+        this.unlockedPuzzleIds = unlockedPuzzleIds != null ? unlockedPuzzleIds : new HashSet<>();
+    }
+
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -85,4 +136,8 @@ public class MissionSession {
 
     public LocalDateTime getCompletedAt() { return completedAt; }
     public void setCompletedAt(LocalDateTime completedAt) { this.completedAt = completedAt; }
+
+
+
+
 }
