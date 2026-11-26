@@ -72,27 +72,62 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.6.0</version>
+
+                <configuration>
+                    <configLocation>checkstyle.xml</configLocation>
+                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                    <failOnViolation>true</failOnViolation>
+
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <id>checkstyle-validation</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
-                <version>1.17.4</version>
+                <version>1.19.4</version>
                 <dependencies>
                     <dependency>
                         <groupId>org.pitest</groupId>
                         <artifactId>pitest-junit5-plugin</artifactId>
-                        <version>1.2.1</version>
+                        <version>1.2.3</version>
                     </dependency>
                 </dependencies>
                 <configuration>
+
+                    <verbose>true</verbose>
+
+                    <threads>1</threads>
+
                     <targetClasses>
                         <param>org.example.escapehubbackend.engine.*</param>
                         <param>org.example.escapehubbackend.service.MissionGameplayService</param>
                         <param>org.example.escapehubbackend.controller.MissionGameplayController</param>
+                        <param>org.example.escapehubbackend.engine.MissionRuleEngine</param>
                     </targetClasses>
                     <targetTests>
                         <param>org.example.escapehubbackend.engine.*</param>
+                        <param>org.example.escapehubbackend.engine.*Test</param>
                         <param>org.example.escapehubbackend.controller.MissionSessionControllerTest</param>
+
                     </targetTests>
+                    <outputFormats>
+                        <param>HTML</param>
+                        <param>XML</param>
+                    </outputFormats>
                 </configuration>
+
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
